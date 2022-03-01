@@ -1,0 +1,53 @@
+.review-form-container {
+    height: 500px;
+    width: 700px;
+    padding: 20px;
+    border: 1px solid black;
+    background-color: lightseagreen;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.review-form-container form {
+    display: flex;
+    height: 80%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.review-form-container input {
+    font-size: 1.2rem;
+    padding: 0 5px;
+}
+
+#review-text {
+    width: 100%;
+    height: 200px;
+    resize: vertical;
+    max-height: 200px;
+    font-size: 1.2rem;
+    padding: 0 5px;
+}
+
+
+.review{
+    width: 700px;
+    padding: 10px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review button{
+    cursor: pointer;
+    align-self: flex-start;
+    background-color: transparent;
+    border: none; 
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: red;
+}

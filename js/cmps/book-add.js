@@ -2,13 +2,12 @@ import { bookService } from '../services/book-service.js'
 
 export default {
     template: `
-    <input type="text" list="book-search-list" v-model="searchTitle" @change="searchBook">
-    <!-- <datalist id="book-search-list">
-        <option v-for="result in searchResults" :value="result.volumeInfo.title">
-    </datalist> -->
-    <ul>
-        <li v-for="result in searchResults">{{result.volumeInfo.title}} <button @click="saveBook(result)">+</button></li>
-    </ul>
+    <section class="add-book-container">
+        <input type="text" list="book-search-list" v-model="searchTitle" @change="searchBook">
+        <ul>
+            <li v-for="result in searchResults">{{result.volumeInfo.title}} <button @click="saveBook(result)">+</button></li>
+        </ul>
+    </section>
     `,
     data() {
         return {

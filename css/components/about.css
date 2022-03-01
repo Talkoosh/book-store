@@ -1,0 +1,34 @@
+.about {
+    max-width: 60%;
+    margin: auto;
+    background-color: var(--clr4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about p{
+    margin: 50px;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: var(--clr1)
+}
+
+.about img{
+    width: 50%;
+    height: 500px;
+    border-radius: 15px;
+}
+
+.about-links{
+    width: 250px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-me{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

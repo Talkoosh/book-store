@@ -1,0 +1,41 @@
+.add-book-container{
+    background-color: var(--clr4);
+    padding: 40px;
+}
+
+.add-book-container input {
+    height: 50px;
+    width: 250px;
+    padding: 15px;;
+    border-radius: 500rem;
+    font-size: 1.5rem;
+}
+
+.add-book-container ul {
+    list-style: none;
+    padding: 10px;
+}
+
+.add-book-container li{
+    width: 350px;
+    font-size: 1.2rem;
+    line-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    color: var(--clr1);
+}
+
+.add-book-container button{
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    transition: color .3s;
+}
+
+.add-book-container button:hover {
+    color: var(--clr1);
+    border: 1px solid black;
+    cursor: pointer;
+}
