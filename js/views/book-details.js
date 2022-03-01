@@ -86,6 +86,7 @@ export default {
     watch: {
         bookId: {
             handler(id) {
+                if(!id) return
                 bookService.getBookById(id)
                     .then(book => this.book = book)
             },

@@ -26,6 +26,7 @@ function getBookById(id) {
 function _setPrevNextBookId(book) {
   const books = query();
   return books.then(books => {
+    console.log(book);
     const idx = books.findIndex(currBook => currBook.id === book.id);
     book.nextBookId = (idx === books.length - 1) ? books[0].id : books[idx + 1].id;
     book.prevBookId = (idx === 0) ? books[books.length - 1].id : books[idx - 1].id;
