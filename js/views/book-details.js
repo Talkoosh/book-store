@@ -1,7 +1,7 @@
 import { bookService } from "../services/book-service.js";
 import longText from "../cmps/long-text.js";
 import bookReview from "../cmps/book-review.js";
-import  bookReviewsShow from "../cmps/book-reviews-show.js";
+import bookReviewsShow from "../cmps/book-reviews-show.js";
 import { eventBus } from "../services/bus-service.js";
 export default {
     template: `
@@ -20,7 +20,7 @@ export default {
                         {{author}}
                     </li>
                 </ul>
-            <p class="book-details-price" :class="bookPriceColor">{{book.listPrice.amount}}{{currencyType}}</p>
+            <p class="book-details-price" :class="bookPriceColor">{{bookPrice}}</p>
             <long-text :text="book.description"/>
             <div class="book-details-sale" v-if="book.listPrice.isOnSale">
                 Sale!!
@@ -30,17 +30,17 @@ export default {
             </div>
             <book-reviews-show @delete-review="deleteReview" :reviews="book.reviews"/>
             <book-review @book-update="updateBook" :bookId="book.id"/>
-
+            <div>
+                <router-link :to="'/book/'+book.prevBookId">Previous Book</router-link>
+                |
+                <router-link :to="'/book/'+book.nextBookId">Next Book</router-link>
+            </div>
         </section>
     `,
-    data(){
+    data() {
         return {
             book: null
         }
-    },
-    created(){
-        const books = bookService.getBookById(this.$route.params.bookId);
-        books.then(book => this.book = book )
     },
     components: {
         longText,
@@ -48,27 +48,20 @@ export default {
         bookReviewsShow
     },
     methods: {
-        updateBook(book){
+        updateBook(book) {
             this.book = book;
-            eventBus.emit('show-msg', {txt: `Book ${this.book.title} review was added!`, bookId: this.book.id, success: true})
+            eventBus.emit('show-msg', { txt: `Book ${this.book.title} review was added!`, bookId: this.book.id, success: true })
 
         },
-        deleteReview(reviewIdx){
+        deleteReview(reviewIdx) {
             bookService.deleteReview(this.book.id, reviewIdx)
-            .then(newBook => this.updateBook(newBook))
-            .then(() => eventBus.emit('show-msg', {txt: 'Review successfully deleted', success: true}))
+                .then(newBook => this.updateBook(newBook))
+                .then(() => eventBus.emit('show-msg', { txt: 'Review successfully deleted', success: true }))
         }
     },
     computed: {
-        currencyType() {
-            switch (this.book.listPrice.currencyCode) {
-                case 'ILS':
-                    return '₪';
-                case 'USD':
-                    return '$'
-                default:
-                    return '€'
-            }
+        bookPrice() {
+            return new Intl.NumberFormat(this.book.language, { style: 'currency', currency: this.book.listPrice.currencyCode }).format(this.book.listPrice.amount);
         },
         bookAge() {
             const currYear = new Date(Date.now()).getFullYear();
@@ -86,6 +79,17 @@ export default {
             if (price > 150) return 'red';
             if (price < 20) return 'green';
         },
-      
+        bookId() {
+            return this.$route.params.bookId;
+        }
+    },
+    watch: {
+        bookId: {
+            handler(id) {
+                bookService.getBookById(id)
+                    .then(book => this.book = book)
+            },
+            immediate: true
+        }
     }
 }

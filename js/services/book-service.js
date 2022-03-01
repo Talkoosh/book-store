@@ -20,6 +20,17 @@ function query() {
 
 function getBookById(id) {
   return storageService.get(BOOKS_KEY, id)
+    .then(book => _setPrevNextBookId(book))
+}
+
+function _setPrevNextBookId(book) {
+  const books = query();
+  return books.then(books => {
+    const idx = books.findIndex(currBook => currBook.id === book.id);
+    book.nextBookId = (idx === books.length - 1) ? books[0].id : books[idx + 1].id;
+    book.prevBookId = (idx === 0) ? books[books.length - 1].id : books[idx - 1].id;
+    return book;
+  })
 }
 
 function addReview(id, review) {
@@ -27,7 +38,7 @@ function addReview(id, review) {
   return book.then(book => {
     if (!book.reviews) book.reviews = [];
     book.reviews.push(review);
-    return book
+    return book;
   })
     .then((book => storageService.put(BOOKS_KEY, book)));
 }
@@ -45,7 +56,7 @@ function getBookSearches(title) {
     .then(res => res.data)
 }
 
-function addBook(googleBook){
+function addBook(googleBook) {
   const book = _extractFromGoogleBook(googleBook);
   return storageService.post(BOOKS_KEY, book);
 }
@@ -60,8 +71,8 @@ function _extractFromGoogleBook(googleBook) {
     pageCount: googleBook.volumeInfo.pageCount,
     thumbnail: googleBook.volumeInfo.imageLinks.thumbnail,
     language: googleBook.volumeInfo.language,
-    listPrice:{
-      amount: Math.ceil(Math.random() * 200),
+    listPrice: {
+      amount: (Math.ceil(Math.random() * 200)),
       currencyCode: 'USD',
       isOnSale: (Math.random() > 0.5) ? true : false
     }
