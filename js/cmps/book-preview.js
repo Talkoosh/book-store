@@ -4,7 +4,7 @@ export default {
         <div class="book-preview">
             <h1>{{book.title}}</h1>
             <h5>Price: {{currencyType}}</h5>
-            <img :src="book.thumbnail">
+            <img class="book-preview-img" :src="book.thumbnail">
         </div>
     `,
     computed: {

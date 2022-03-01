@@ -9,7 +9,9 @@ export const bookService = {
   query,
   getBookById,
   addReview,
-  deleteReview
+  deleteReview,
+  getBookSearches,
+  addBook
 }
 
 function query() {
@@ -38,6 +40,33 @@ function deleteReview(id, reviewIdx) {
   })
 }
 
+function getBookSearches(title) {
+  return axios.get(`https://www.googleapis.com/books/v1/volumes?printType=books&q=${title}`)
+    .then(res => res.data)
+}
+
+function addBook(googleBook){
+  const book = _extractFromGoogleBook(googleBook);
+  return storageService.post(BOOKS_KEY, book);
+}
+
+function _extractFromGoogleBook(googleBook) {
+  return {
+    title: googleBook.volumeInfo.title,
+    subtitle: googleBook.volumeInfo.subtitle,
+    authors: googleBook.volumeInfo.authors,
+    publishedDate: googleBook.volumeInfo.publishedDate,
+    description: googleBook.volumeInfo.description,
+    pageCount: googleBook.volumeInfo.pageCount,
+    thumbnail: googleBook.volumeInfo.imageLinks.thumbnail,
+    language: googleBook.volumeInfo.language,
+    listPrice:{
+      amount: Math.ceil(Math.random() * 200),
+      currencyCode: 'USD',
+      isOnSale: (Math.random() > 0.5) ? true : false
+    }
+  }
+}
 
 function _createBooks() {
   let books = utilService.load(BOOKS_KEY);

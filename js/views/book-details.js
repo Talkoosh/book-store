@@ -26,7 +26,7 @@ export default {
                 Sale!!
             </div>
             <div>
-                <img :src="book.thumbnail">
+                <img class="book-details-img" :src="book.thumbnail">
             </div>
             <book-reviews-show @delete-review="deleteReview" :reviews="book.reviews"/>
             <book-review @book-update="updateBook" :bookId="book.id"/>

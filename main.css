@@ -11,6 +11,15 @@ p {
     white-space: normal;
 }
 
+.book-preview-img{
+    width: 100%
+}
+
+.book-details-img{
+    width: 400px;
+    height: 600px;
+}
+
 .app-nav {
     height: 200px;
     display: flex;

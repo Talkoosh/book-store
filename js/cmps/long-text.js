@@ -22,6 +22,7 @@ export default {
             else return 'Show More'
         },
         bookDesc(){
+            if(!this.text) return 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci non consectetur rem eos aperiam facilis et perspiciatis porro, eligendi, voluptas quia architecto consequatur officia quas ut. Nulla tempore rem quo.'
             if(this.isLongText) return this.text; 
             else return this.text.substring(0, 100) + '...'
         }

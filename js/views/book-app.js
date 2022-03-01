@@ -1,17 +1,20 @@
 import { bookService } from "../services/book-service.js"
 import bookList from '../cmps/book-list.js'
 import bookFilter from "../cmps/book-filter.js"
+import bookAdd from "../cmps/book-add.js"
 
 export default {
     template: `
         <section class="book-app">
               <book-filter @filtered="setFilter"></book-filter>
+              <book-add @book-added="addBook"></book-add>
               <book-list :books="booksToShow"></book-list>
         </section>
     `,
     components: {
         bookList,
-        bookFilter
+        bookFilter,
+        bookAdd
     },
     data() {
         return {
@@ -26,6 +29,9 @@ export default {
     methods: {
         setFilter(filter){
             this.filterBy = filter;
+        },
+        addBook(book){
+            this.books.push(book)
         }
     },
     computed: {
